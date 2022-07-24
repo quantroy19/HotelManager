@@ -1,0 +1,21 @@
+{
+  "name": "php_3",
+  "description": "",
+  "main": "",
+  "authors": [
+    "VanDat2305 <datmv202@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/quantroy19/HotelManager",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "light-bootstrap-dashboard": "creativetimofficial/light-bootstrap-dashboard"
+  }
+}
