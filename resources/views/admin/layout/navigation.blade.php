@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#pablo"> Dashboard </a>
         <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar burger-lines"></span>
             <span class="navbar-toggler-bar burger-lines"></span>
             <span class="navbar-toggler-bar burger-lines"></span>
@@ -15,7 +15,7 @@
                         <span class="d-lg-none">Dashboard</span>
                     </a>
                 </li>
-              
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nc-icon nc-zoom-split"></i>
@@ -25,8 +25,8 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="no-icon">Account</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -36,6 +36,16 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                         <div class="divider"></div>
                         <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="language" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="no-icon">{{ __('Language') }}</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="language">
+                        <a class="dropdown-item" href="#">Viet nam</a>
+                        <a class="dropdown-item" href="#">English</a>
                     </div>
                 </li>
                 <li class="nav-item">
