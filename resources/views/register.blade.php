@@ -10,54 +10,126 @@
     <link rel="icon" type="image/png"
         href="{{ asset('bower_components/light-bootstrap-dashboard/assets/img/favicon.ico') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>@yield('title', 'Dashboach')</title>
+    <title>@yield('title', 'Register')</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    @include('admin.layout.style')
+    <style>
+        .note {
+            text-align: center;
+            height: 80px;
+            background: -webkit-linear-gradient(left, #4681ff, #005881);
+            color: #fff;
+            font-weight: bold;
+            line-height: 80px;
+            font-size: 30px;
+            padding-top: 2px;
+            padding-bottom: 10px;
+        }
 
-    @section('css')
-        @include('admin.layout.style')
-    @show
+        .form-content {
+            padding: 7%;
+            border: 1px solid #ced4da;
+            border-radius: 0px 0px 10px 10px;
+            margin-bottom: 2%;
+        }
+
+        .form-control {
+            border-radius: 1.5rem;
+            padding-left: 30px;
+        }
+
+        .btnSubmit {
+            border: none;
+            border-radius: 1.5rem;
+            padding: 1%;
+            width: 20%;
+            cursor: pointer;
+            background: #0062cc;
+            color: #fff;
+        }
+
+        .register-form {
+            margin-top: 5%;
+        }
+
+        .error {
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container register-form">
+    <div class="container register-form col-5">
         <div class="form">
             <div class="note">
-                <p>This is a simpleRegister Form made using Boostrap.</p>
+                Register
             </div>
-
-            <div class="form-content">
+            <form class="form-content" method="POST" action="{{ url('/register') }}">
+                @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Name *" value="" />
+                            <input type="text" class="form-control" name="name" placeholder="Your Name *"
+                                value="{{ old('name') }}" />
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Phone Number *" value="" />
-                        </div>
+                        @error('name')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Password *" value="" />
+                            <input type="text" class="form-control" name="email" placeholder="Email *"
+                                value="{{ old('email') }}" />
                         </div>
+                        @error('email')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Confirm Password *"
-                                value="" />
+                            <input type="number" class="form-control" name="phone" placeholder="Phone Number *"
+                                value="{{ old('phone') }}" />
                         </div>
+                        @error('phone')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="address" placeholder="Address"
+                                value="{{ old('address') }}" />
+                        </div>
+                        @error('address')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Your Password *"
+                                value="{{ old('password') }}" />
+                        </div>
+                        @error('password')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="re-password"
+                                placeholder="Confirm Password *" value="{{ old('re-password') }}" />
+                        </div>
+                        @error('re-password')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
-                <button type="button" class="btnSubmit">Submit</button>
-            </div>
+                <button type="submit" class="btnSubmit">Submit</button>
+            </form>
         </div>
     </div>
+    </div>
 </body>
-<!--   Core JS Files   -->
-@section('script')
-    @include('admin.layout.script')
-@show
-
+@include('admin.layout.script')
 
 </html>
