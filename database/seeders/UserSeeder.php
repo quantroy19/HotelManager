@@ -19,10 +19,11 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'id' => 1,
+
                 'name' => 'AdminQuan',
                 'email' => 'adminQ@gmail.com',
                 'password' => Hash::make('123123123'),
+                'address' => "Hoa Lac Ha noi",
                 'phone' => '0123456789',
                 'email_verified_at' => Carbon::now()->toDateTimeString(),
                 'role_id' => config('custom.user_roles.admin'),
@@ -30,11 +31,12 @@ class UserSeeder extends Seeder
                 'updated_at' => Carbon::now()->toDateTimeString(),
             ],
             [
-                'id' => 2,
+
                 'name' => 'UserQ',
                 'email' => 'user@gmail.com',
                 'password' => Hash::make('123123123'),
                 'phone' => '011111111',
+                'address' => "Hoa Lac Ha noi",
                 'email_verified_at' => Carbon::now()->toDateTimeString(),
                 'role_id' => config('custom.user_roles.user'),
                 'created_at' => Carbon::now()->toDateTimeString(),

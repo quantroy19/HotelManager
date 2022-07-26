@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DemoController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-Route::get('/test',"Admin\DemoController@index");
+Route::get('/test', "Admin\DemoController@index");
+Route::get('/register', "Auth\RegisterController@index")->name('form-register');
+Route::post('/register', "Auth\RegisterController@add")->name('register');
