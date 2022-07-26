@@ -15,49 +15,7 @@
         name='viewport' />
     <!--     Fonts and icons     -->
     @include('admin.layout.style')
-    <style>
-        .note {
-            text-align: center;
-            height: 80px;
-            background: -webkit-linear-gradient(left, #4681ff, #005881);
-            color: #fff;
-            font-weight: bold;
-            line-height: 80px;
-            font-size: 30px;
-            padding-top: 2px;
-            padding-bottom: 10px;
-        }
-
-        .form-content {
-            padding: 7%;
-            border: 1px solid #ced4da;
-            border-radius: 0px 0px 10px 10px;
-            margin-bottom: 2%;
-        }
-
-        .form-control {
-            border-radius: 1.5rem;
-            padding-left: 30px;
-        }
-
-        .btnSubmit {
-            border: none;
-            border-radius: 1.5rem;
-            padding: 1%;
-            width: 20%;
-            cursor: pointer;
-            background: #0062cc;
-            color: #fff;
-        }
-
-        .register-form {
-            margin-top: 5%;
-        }
-
-        .error {
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 </head>
 
 <body>

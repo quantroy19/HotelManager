@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -18,33 +19,11 @@ class RegisterController extends Controller
     public function index()
     {
         $this->v['title'] = "Register";
-        return view('register', $this->v);
+        return view('Auth.register', $this->v);
     }
-    public function add(Request $request)
+    public function add(RegisterRequest $request)
     {
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required|min:10|max:11',
-            'address' => 'required|min:6',
-            'password' => 'required|min:8',
-            're-password' => 'required|same:password'
-        ];
-        $messages = [
-            'name.required' => 'Mời bạn nhập ten',
-            'email.required' => 'Mời bạn nhập email',
-            'email.email' => 'Mời bạn nhập đúng định dạng email',
-            'phone.required' => 'Mời bạn nhập so dien thoai',
-            'phone.max' => 'So dien thoai khong hop le',
-            'phone.min' => 'o dien thoai khong hop le',
-            'address.required' => 'Mời bạn nhập dia chi',
-            'password.required' => 'Mời bạn nhập password',
-            'password.min' => 'Password khong du kys tu',
-            're-password.required' => 'Mời bạn nhập xác nhận mật khau',
-            're-password.same' => 'Mat khau khong khop'
-
-        ];
-        $validater = Validator::make($request->all(), $rules, $messages);
+        $validater = Validator::make($request->all());
         if ($validater->fails()) {
             return redirect('register')->withErrors($validater)->withInput();
         } else {
