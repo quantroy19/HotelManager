@@ -1,3 +1,6 @@
+@php
+$objUser = \Illuminate\Support\Facades\Auth::user();
+@endphp
 <!DOCTYPE html>
 
 <html lang="en">

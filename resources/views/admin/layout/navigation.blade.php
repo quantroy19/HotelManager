@@ -27,7 +27,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="no-icon">Account</span>
+                        <span class="no-icon">{{ $objUser->name }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">Action</a>
@@ -49,7 +49,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
+                    <a class="nav-link" href="{{ route('logout') }}">
                         <span class="no-icon">Log out</span>
                     </a>
                 </li>
