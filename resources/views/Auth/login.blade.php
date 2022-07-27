@@ -24,7 +24,7 @@
             <div class="note">
                 Login
             </div>
-            <form class="form-content" method="POST" action="{{ url('/login') }}">
+            <form class="form-content" method="POST" action="{{ Route('postLogin') }}">
                 @csrf
                 <div class="row">
                     <div class="col-12">
