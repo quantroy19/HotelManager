@@ -26,3 +26,25 @@ Route::post('/register', "Auth\RegisterController@add")->name('register');
 Route::get('/login', 'Auth\LoginController@formLogin')->name('getLogin');
 Route::post('/login', 'Auth\LoginController@postLogin')->name('postLogin');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::group(
+    [
+        'prefix' => 'admin',
+        'as' => 'admin.',
+        'namespace' => 'Admin',
+        // 'middleware' => 'Auth'
+    ],
+    function () {
+        Route::get('/', function () {
+            return 'dashboard admin';
+        });
+        Route::prefix('category')->as('category.')->group(function () {
+            Route::get('/', 'CategoryController@index')->name('index');
+            Route::get('/create', 'CategoryController@create')->name('create');
+            Route::post('/store', 'CategoryController@store')->name('store');
+            Route::get('/{id}/edit', 'CategoryController@edit')->name('edit');
+            Route::put('/{id}', 'CategoryController@update')->name('update');
+            Route::delete('/{id}', 'CategoryController@destroy')->name('destroy');
+        });
+    }
+
+);
