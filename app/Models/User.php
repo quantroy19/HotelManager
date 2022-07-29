@@ -56,4 +56,25 @@ class User extends Authenticatable
         $res = DB::table("users")->insertGetId($data);
         return $res;
     }
+    public function getStatusAttribute($value)
+    {
+        $userStatus = null;
+        switch ($value) {
+            case config('custom.user_status.active'):
+                $userStatus = __('active');
+                break;
+            case config('custom.user_status.block'):
+                $userStatus = __('block');
+                break;
+            default:
+                $userStatus = __('active');
+                break;
+        }
+
+        return $userStatus;
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
