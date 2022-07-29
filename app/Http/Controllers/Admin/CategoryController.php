@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Session;
 class CategoryController extends Controller
 {
     protected $v;
-    protected $timestamps = true;
     public function __construct()
     {
         $this->v = [];

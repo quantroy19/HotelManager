@@ -52,15 +52,15 @@
                                             title="Edit " class="btn btn-info btn-simple btn-link">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        {{-- <form action="{{ route('admin.category.destroy', ['id' => $list->id]) }}"
+                                        <form action="{{ route('admin.category.destroy', ['id' => $list->id]) }}"
                                             method="POST">
                                             @csrf
-                                            @method('DELETE') --}}
-                                        <button type="submit" rel="tooltip" title="Remove"
-                                            class="btn btn-danger btn-simple btn-link">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                        {{-- </form> --}}
+                                            @method('DELETE')
+                                            <button type="submit" rel="tooltip" title="Remove"
+                                                class="btn btn-danger btn-simple btn-link">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
