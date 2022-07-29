@@ -6,13 +6,18 @@
             </a>
         </div>
         <ul class="nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="dashboard.html">
+            <li class="nav-item ">
+                <a class="nav-link" href="#">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
-
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.category.index') }}">
+                    <i class="nc-icon nc-layers-3"></i>
+                    <p>Category</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
