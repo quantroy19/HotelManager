@@ -23,8 +23,8 @@ class UserController extends Controller
     public function index()
     {
         $this->v['title'] = "List user";
-        $this->v['lists'] = User::paginate(10);
-        // where('role_id', config('custom.user_roles.user'))->
+        $this->v['lists'] = User::where('role_id', config('custom.user_roles.user'))->paginate(10);
+
         return view('admin.user.index', $this->v);
     }
 
