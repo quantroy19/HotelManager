@@ -13,8 +13,6 @@ class CategoryController extends Controller
 {
     protected $v;
     protected $timestamps = true;
-    public $status = ['1' => 'active', '2' => 'inactive'];
-
     public function __construct()
     {
         $this->v = [];
@@ -26,8 +24,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $objCate = new Category();
-        $this->v['lists'] = $objCate->loadList();
+        $objCate = Category::paginate();
+        $this->v['lists'] = $objCate;
         $this->v['title'] = 'List category';
 
         return view('admin.category.index', $this->v);
@@ -41,7 +39,6 @@ class CategoryController extends Controller
     public function create()
     {
         $this->v['title'] = 'Add category';
-        $this->v['status'] = $this->status;
         return view('admin.category.add', $this->v);
     }
 
@@ -53,15 +50,17 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $model = new Category($request->post());
-        $res = $model->save();
+        $model = new Category();
+        $data = [];
+        $data['status'] = $request->status ? config('custom.category_status.active') : config('custom.category_status.inactive');
+        $data['name'] = $request->name;
+        $res = $model->create($data);
         if ($res) {
             Session::flash('success', 'Thêm mới thành công');
-            return redirect()->route('admin.category.index');
         } else {
             Session::flash('error', 'Thêm mới thất bại');
-            return redirect()->route('admin.category.index');
         }
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -86,7 +85,6 @@ class CategoryController extends Controller
         $this->v['title'] = 'Edit Category';
         $cate = Category::find($id);
         $this->v['item'] = $cate;
-        $this->v['status'] = $this->status;
         return view('admin.category.edit', $this->v);
     }
 
@@ -99,15 +97,18 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $cate = Category::find($id)->update($request->post());
-        if ($cate) {
-            Session::flash('success', 'Thêm mới thành công');
-            return redirect()->route('admin.category.index');
+
+        $model = Category::find($id);
+        $data = [];
+        $data['status'] = $request->status ? config('custom.category_status.active') : config('custom.category_status.inactive');
+        $data['name'] = $request->name;
+        $res = $model->update($data);
+        if ($res) {
+            Session::flash('success', 'Sua thành công');
         } else {
-            Session::flash('error', 'Thêm mới thất bại');
-            return redirect()->route('admin.category.index');
+            Session::flash('error', 'Sua thất bại');
         }
-        return $request;
+        return redirect()->route('admin.category.index');
     }
 
     /**

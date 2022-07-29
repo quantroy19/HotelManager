@@ -10,18 +10,35 @@ use Illuminate\Support\Facades\Hash;
 class Category extends Model
 {
     use HasFactory;
-    protected $table = 'categories';
-    protected $fillable = ['id', 'name', 'status'];
-    public function loadList($params = [])
+    // protected $table = 'categories';
+    protected $fillable = ['name', 'status'];
+    // public function loadList($params = [])
+    // {
+    //     $query = DB::table($this->table)
+    //         ->select($this->fillable);
+    //     $lists = $query->paginate(10);
+    //     return $lists;
+    // }
+    // public function saveNew($params)
+    // {
+    //     $res = DB::table($this->table)->insertGetId($params);
+    //     return $res;
+    // }
+    public function getStatusAttribute($value)
     {
-        $query = DB::table($this->table)
-            ->select($this->fillable);
-        $lists = $query->paginate(10);
-        return $lists;
-    }
-    public function saveNew($params)
-    {
-        $res = DB::table($this->table)->insertGetId($params);
-        return $res;
+        $cateStatus = null;
+        switch ($value) {
+            case config('custom.category_status.active'):
+                $cateStatus = __('active');
+                break;
+            case config('custom.category_status.inactive'):
+                $cateStatus = __('inactive');
+                break;
+            default:
+                $cateStatus = __('active');
+                break;
+        }
+
+        return $cateStatus;
     }
 }

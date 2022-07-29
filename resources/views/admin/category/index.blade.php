@@ -37,29 +37,30 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Status</th>
-                            <th><a class="btn btn-primary" href="{{ route('admin.category.create') }}"><i
-                                        class="nc-icon nc-simple-add"></i></a></th>
+                            <th><a class="btn btn-primary" href="{{ route('admin.category.create') }}"> Add</a></th>
                         </thead>
                         <tbody>
                             @foreach ($lists as $list)
                                 <tr>
                                     <td>{{ $list->id }}</td>
                                     <td>{{ $list->name }}</td>
-                                    <td class="{{ $list->status == 1 ? 'text-success' : 'text-danger' }}">
-                                        {{ $list->status == 1 ? 'active' : 'inactive' }}</td>
                                     <td>
-                                        <a href="{{ route('admin.category.edit', $list->id) }}" rel="tooltip"
+                                        {{ $list->status }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.category.edit', ['id' => $list->id]) }}" rel="tooltip"
                                             title="Edit " class="btn btn-info btn-simple btn-link">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('admin.category.destroy', $list->id) }}" method="POST">
+                                        {{-- <form action="{{ route('admin.category.destroy', ['id' => $list->id]) }}"
+                                            method="POST">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" rel="tooltip" title="Remove"
-                                                class="btn btn-danger btn-simple btn-link">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </form>
+                                            @method('DELETE') --}}
+                                        <button type="submit" rel="tooltip" title="Remove"
+                                            class="btn btn-danger btn-simple btn-link">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                        {{-- </form> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -76,4 +77,7 @@
         </div>
     </div>
     </div>
+@endsection
+@section('script')
+    @parent
 @endsection

@@ -23,7 +23,7 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($request->route('id'));
+        $id = $this->route()->id;
         $rules = [];
         $currentAction = $this->route()->getActionMethod(); //để lấy phương thức hiện tại
         switch ($this->method()):
@@ -33,17 +33,16 @@ class CategoryRequest extends FormRequest
                         $rules = [
                             "name" => "required|unique:categories",
                         ];
-                    case 'update':
-                        $rules = [
-                            "name" => "required",
-                        ];
                     default:
                         break;
                 }
+            case 'PUT':
+                $rules = [
+                    "name" => "required|unique:categories,name,$id,id",
+                ];
             default:
                 break;
         endswitch;
-
         return $rules;
     }
     public function messages()
