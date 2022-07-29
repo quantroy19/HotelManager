@@ -99,16 +99,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $model = User::find($id);
         $data = [];
         $data = $request->post();
-        dd($request->file('image'));
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('public/image/user/'), $filename);
+            $file->move(public_path('image/user/'), $filename);
             $data['avatar'] = $filename;
         } else {
             if ($data['image_old'] == null) {
@@ -118,7 +117,6 @@ class UserController extends Controller
             }
         }
         $data['status'] = $request->status ? config('custom.user_status.active') : config('custom.user_status.block');
-        dd($data);
         $res = $model->update($data);
         if ($res) {
             Session::flash('success', 'Sua thành công');
@@ -139,10 +137,9 @@ class UserController extends Controller
         $res = User::destroy($id);
         if ($res) {
             Session::flash('success', 'Xoa thành công');
-            return redirect()->route('admin.user.index');
         } else {
             Session::flash('error', 'Xoa thất bại');
-            return redirect()->route('admin.user.index');
         }
+        return redirect()->route('admin.user.index');
     }
 }

@@ -121,10 +121,9 @@ class CategoryController extends Controller
         $res = Category::destroy($id);
         if ($res) {
             Session::flash('success', 'Xoa thành công');
-            return redirect()->route('admin.category.index');
         } else {
             Session::flash('error', 'Xoa thất bại');
-            return redirect()->route('admin.category.index');
         }
+        return redirect()->route('admin.category.index');
     }
 }

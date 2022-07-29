@@ -56,8 +56,8 @@
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" rel="tooltip" title="Remove"
-                                                class="btn btn-danger btn-simple btn-link">
+                                            <button type="submit" onclick="return confirm('Ban co muon xoa khong')"
+                                                rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </form>
