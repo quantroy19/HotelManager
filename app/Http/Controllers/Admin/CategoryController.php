@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $objCate = Category::paginate();
+        $objCate = Category::orderByDesc('created_at')->paginate(10);
         $this->v['lists'] = $objCate;
         $this->v['title'] = 'List category';
 
@@ -121,10 +121,9 @@ class CategoryController extends Controller
         $res = Category::destroy($id);
         if ($res) {
             Session::flash('success', 'Xoa thành công');
-            return redirect()->route('admin.category.index');
         } else {
             Session::flash('error', 'Xoa thất bại');
-            return redirect()->route('admin.category.index');
         }
+        return redirect()->route('admin.category.index');
     }
 }

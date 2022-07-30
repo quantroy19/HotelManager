@@ -18,6 +18,12 @@
                     <p>Category</p>
                 </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.user.index') }}">
+                    <i class="nc-icon nc-circle-09"></i>
+                    <p>User</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

@@ -2,6 +2,10 @@
 @section('title')
     {{ $title }}
 @endsection
+@section('css')
+    @parent
+    <link rel="stylesheet" href="{{ asset('css/custom_admin.css') }}">
+@endsection
 @section('content')
     <div class="row">
         <div class="col">
@@ -35,29 +39,41 @@
                     <table class="table table-hover table-striped">
                         <thead class="thead ">
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Avatar</th>
+                            <th>Role</th>
                             <th>Status</th>
-                            <th><a class="btn btn-primary" href="{{ route('admin.category.create') }}"> Add</a></th>
+                            <th><a class="btn btn-primary" href="{{ route('admin.user.create') }}"> Add</a></th>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody_image">
                             @foreach ($lists as $list)
                                 <tr>
                                     <td>{{ $list->id }}</td>
                                     <td>{{ $list->name }}</td>
+                                    <td>{{ $list->email }}</td>
+                                    <td>{{ $list->phone }}</td>
+                                    <td>{{ $list->address }}</td>
+                                    <td><img src="{{ asset('image/user/' . $list->avatar) }}"
+                                            style="height: 100px;width: 80px" alt="" srcset="">
+                                    </td>
+                                    <td>{{ $list->role->name }}</td>
                                     <td>
                                         {{ $list->status }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.category.edit', ['id' => $list->id]) }}" rel="tooltip"
+                                        <a href="{{ route('admin.user.edit', ['id' => $list->id]) }}" rel="tooltip"
                                             title="Edit " class="btn btn-info btn-simple btn-link">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('admin.category.destroy', ['id' => $list->id]) }}"
+                                        <form action="{{ route('admin.user.destroy', ['id' => $list->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" onclick="return confirm('Ban co muon xoa khong')"
-                                                rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
+                                            <button onclick="return confirm('Ban co muon xoa khong')" rel="tooltip"
+                                                title="Remove" class="btn btn-danger btn-simple btn-link">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </form>
