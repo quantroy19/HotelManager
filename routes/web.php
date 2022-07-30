@@ -45,6 +45,14 @@ Route::group(
             Route::put('/{id}', 'CategoryController@update')->name('update');
             Route::delete('/{id}', 'CategoryController@destroy')->name('destroy');
         });
+        Route::prefix('user')->as('user.')->group(function () {
+            Route::get('/', 'UserController@index')->name('index');
+            Route::get('/create', 'UserController@create')->name('create');
+            Route::post('/store', 'UserController@store')->name('store');
+            Route::get('/{id}/edit', 'UserController@edit')->name('edit');
+            Route::put('/{id}', 'UserController@update')->name('update');
+            Route::delete('/{id}', 'UserController@destroy')->name('destroy');
+        });
     }
 
 );
