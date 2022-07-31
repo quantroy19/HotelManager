@@ -20,4 +20,12 @@ return [
         'inactive' => 'inactive',
         'active' => 'active',
     ],
+    'banner_status' => [
+        'inactive' => '0',
+        'active' => '1',
+    ],
+    'banner_status_text' => [
+        'inactive' => 'inactive',
+        'active' => 'active',
+    ],
 ];

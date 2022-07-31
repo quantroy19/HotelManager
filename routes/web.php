@@ -53,6 +53,14 @@ Route::group(
             Route::put('/{id}', 'UserController@update')->name('update');
             Route::delete('/{id}', 'UserController@destroy')->name('destroy');
         });
+        Route::prefix('banner')->as('banner.')->group(function () {
+            Route::get('/', 'BannerController@index')->name('index');
+            Route::get('/create', 'BannerController@create')->name('create');
+            Route::post('/store', 'BannerController@store')->name('store');
+            Route::get('/{id}/edit', 'BannerController@edit')->name('edit');
+            Route::put('/{id}', 'BannerController@update')->name('update');
+            Route::delete('/{id}', 'BannerController@destroy')->name('destroy');
+        });
     }
 
 );

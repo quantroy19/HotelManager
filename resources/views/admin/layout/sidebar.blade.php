@@ -24,6 +24,12 @@
                     <p>User</p>
                 </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.banner.index') }}">
+                    <i class="nc-icon nc-album-2"></i>
+                    <p>Banner</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
