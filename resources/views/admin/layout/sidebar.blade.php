@@ -30,6 +30,12 @@
                     <p>Banner</p>
                 </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.coupon.index') }}">
+                    <i class="nc-icon nc-money-coins"></i>
+                    <p>Coupon</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

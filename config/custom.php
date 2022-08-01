@@ -28,4 +28,12 @@ return [
         'inactive' => 'inactive',
         'active' => 'active',
     ],
+    'coupon_status' => [
+        'inactive' => '0',
+        'active' => '1',
+    ],
+    'coupon_status_text' => [
+        'inactive' => 'inactive',
+        'active' => 'active',
+    ],
 ];
