@@ -61,6 +61,14 @@ Route::group(
             Route::put('/{id}', 'BannerController@update')->name('update');
             Route::delete('/{id}', 'BannerController@destroy')->name('destroy');
         });
+        Route::prefix('coupon')->as('coupon.')->group(function () {
+            Route::get('/', 'CouponController@index')->name('index');
+            Route::get('/create', 'CouponController@create')->name('create');
+            Route::post('/store', 'CouponController@store')->name('store');
+            Route::get('/{id}/edit', 'CouponController@edit')->name('edit');
+            Route::put('/{id}', 'CouponController@update')->name('update');
+            Route::delete('/{id}', 'CouponController@destroy')->name('destroy');
+        });
     }
 
 );
