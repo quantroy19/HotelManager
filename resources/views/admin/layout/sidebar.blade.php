@@ -15,31 +15,31 @@
             <li class="nav-item ">
                 <a class="nav-link" href="{{ route('admin.category.index') }}">
                     <i class="nc-icon nc-layers-3"></i>
-                    <p>Category</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('admin.user.index') }}">
-                    <i class="nc-icon nc-circle-09"></i>
-                    <p>User</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('admin.banner.index') }}">
-                    <i class="nc-icon nc-album-2"></i>
-                    <p>Banner</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('admin.coupon.index') }}">
-                    <i class="nc-icon nc-money-coins"></i>
-                    <p>Coupon</p>
+                    <p>{{ __('Category') }}</p>
                 </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="{{ route('admin.room.index') }}">
                     <i class="nc-icon nc-backpack"></i>
                     <p>{{ __('Room') }}</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.user.index') }}">
+                    <i class="nc-icon nc-circle-09"></i>
+                    <p>{{ __('User') }}</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.banner.index') }}">
+                    <i class="nc-icon nc-album-2"></i>
+                    <p>{{ __('Banner') }}</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.coupon.index') }}">
+                    <i class="nc-icon nc-money-coins"></i>
+                    <p>{{ __('Coupon') }}</p>
                 </a>
             </li>
         </ul>
