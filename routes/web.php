@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\DemoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Client\RoomController as quancontroller;
+use App\Http\Controllers\Client\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
