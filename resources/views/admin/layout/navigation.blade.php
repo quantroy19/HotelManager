@@ -24,7 +24,8 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
+                @auth
+                    <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="no-icon">{{ $objUser->name }}</span>
@@ -38,6 +39,7 @@
                         <a class="dropdown-item" href="#">Separated link</a>
                     </div>
                 </li>
+                @endauth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="language" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">

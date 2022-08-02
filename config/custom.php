@@ -36,4 +36,8 @@ return [
         'inactive' => 'inactive',
         'active' => 'active',
     ],
+    'room_status' => [
+        'inactive' => '0',
+        'active' => '1',
+    ],
 ];

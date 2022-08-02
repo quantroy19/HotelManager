@@ -36,6 +36,12 @@
                     <p>Coupon</p>
                 </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.room.index') }}">
+                    <i class="nc-icon nc-backpack"></i>
+                    <p>{{ __('Room') }}</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
