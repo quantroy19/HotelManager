@@ -31,7 +31,7 @@ Route::group(
         'prefix' => 'admin',
         'as' => 'admin.',
         'namespace' => 'Admin',
-        // 'middleware' => 'Auth'
+        'middleware' => ['auth', 'auth.checkAdmin']
     ],
     function () {
         Route::get('/', function () {
@@ -72,3 +72,6 @@ Route::group(
     }
 
 );
+Route::get("/error-role", function () {
+    return view('notification');
+})->name('error.role');

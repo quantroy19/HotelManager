@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -59,6 +60,7 @@ class UserController extends Controller
             $data['avatar'] = "default.png";
         }
         $data['status'] = $request->status ? config('custom.user_status.active') : config('custom.user_status.block');
+        $data['password'] = Hash::make($request->password);
         $res = $model->create($data);
         if ($res) {
             Session::flash('success', 'Thêm mới thành công');
@@ -117,6 +119,7 @@ class UserController extends Controller
             }
         }
         $data['status'] = $request->status ? config('custom.user_status.active') : config('custom.user_status.block');
+        $data['password'] = Hash::make($request->password);
         $res = $model->update($data);
         if ($res) {
             Session::flash('success', 'Sua thành công');
