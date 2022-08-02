@@ -75,9 +75,14 @@
                         <div class="form-group">
                             <label>Avatar</label>
                             <div class="form-group">
+                                <div>
+                                    <img id="image_preview"
+                                        src="{{ $res->avatar ? Storage::url($res->avatar) : 'https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg' }}"
+                                        alt="your image" style="max-width: 200px; height:100px; margin-bottom: 10px;"
+                                        class="img-fluid" />
+                                </div>
                                 <label class="custom-file">
-                                    <input type="file" name="image" id="" placeholder=""
-                                        class="custom-file-input">
+                                    <input type="file" name="image" id="image" class="custom-file-input">
                                     <span class="custom-file-control"></span>
                                 </label>
                             </div>
@@ -122,11 +127,32 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="image_old" value="{{ $res->avatar }}">
                         <button type="submit" class="btn btn-info btn-fill">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    @parent
+    <script>
+        $(function() {
+            function readURL(input, selector) {
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $(selector).attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#image").change(function() {
+                readURL(this, '#image_preview');
+            });
+
+        });
+    </script>
 @endsection

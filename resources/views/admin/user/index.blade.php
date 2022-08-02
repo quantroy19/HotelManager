@@ -56,7 +56,7 @@
                                     <td>{{ $list->email }}</td>
                                     <td>{{ $list->phone }}</td>
                                     <td>{{ $list->address }}</td>
-                                    <td><img src="{{ asset('image/user/' . $list->avatar) }}"
+                                    <td><img src="{{ $list->avatar ? Storage::url($list->avatar) : 'https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg' }}"
                                             style="height: 100px;width: 80px" alt="" srcset="">
                                     </td>
                                     <td>{{ $list->role->name }}</td>
