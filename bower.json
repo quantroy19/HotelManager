@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "light-bootstrap-dashboard": "creativetimofficial/light-bootstrap-dashboard"
+    "light-bootstrap-dashboard": "creativetimofficial/light-bootstrap-dashboard",
+    "summernote": "^0.8.20"
   }
 }

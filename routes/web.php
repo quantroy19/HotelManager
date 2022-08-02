@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DemoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Client\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,6 +70,8 @@ Route::group(
             Route::put('/{id}', 'CouponController@update')->name('update');
             Route::delete('/{id}', 'CouponController@destroy')->name('destroy');
         });
+
+        Route::resource('room', 'RoomController');
     }
 
 );
