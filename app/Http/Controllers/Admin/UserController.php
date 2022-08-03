@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -51,13 +52,8 @@ class UserController extends Controller
         $model = new User();
         $data = [];
         $data = $request->post();
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/user/'), $filename);
-            $data['avatar'] = $filename;
-        } else {
-            $data['avatar'] = "default.png";
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['avatar'] = $this->uploadImage($request->file('image'));
         }
         $data['status'] = $request->status ? config('custom.user_status.active') : config('custom.user_status.block');
         $data['password'] = Hash::make($request->password);
@@ -106,17 +102,8 @@ class UserController extends Controller
         $model = User::find($id);
         $data = [];
         $data = $request->post();
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/user/'), $filename);
-            $data['avatar'] = $filename;
-        } else {
-            if ($data['image_old'] == null) {
-                $data['avatar'] = "default.png";
-            } else {
-                $data['avatar'] = $data['image_old'];
-            }
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['avatar'] = $this->uploadImage($request->file('image'));
         }
         $data['status'] = $request->status ? config('custom.user_status.active') : config('custom.user_status.block');
         $data['password'] = Hash::make($request->password);
@@ -144,5 +131,10 @@ class UserController extends Controller
             Session::flash('error', 'Xoa thất bại');
         }
         return redirect()->route('admin.user.index');
+    }
+    public function uploadImage($file)
+    {
+        $fileName = time() . $file->getClientOriginalName();
+        return $file->storeAs('userImage', $fileName, 'public');
     }
 }

@@ -36,8 +36,12 @@
                         <div class="form-group">
                             <label>Image</label>
                             <div class="form-group">
+                                <div>
+                                    <img id="image_preview" src="" alt="your image"
+                                        style="width: 350px; height:150px; margin-bottom: 10px; display: none" />
+                                </div>
                                 <label class="custom-file">
-                                    <input type="file" name="image" class="custom-file-input">
+                                    <input type="file" name="image" id="image" class="custom-file-input">
                                     <span class="custom-file-control"></span>
                                 </label>
                             </div>
@@ -64,4 +68,8 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    @parent
+    <script src="{{ asset('js/uploadImage.js') }}"></script>
 @endsection

@@ -16,6 +16,7 @@ mix.js('resources/js/app.js', 'public/js')
         //
     ]);
 mix.js('resources/js/summernote.js', 'public/js');
+mix.js('resources/js/uploadImage.js', 'public/js');
 
 mix.css('resources/css/register.css', 'public/css');
 mix.css('resources/css/custom_admin.css', 'public/css');

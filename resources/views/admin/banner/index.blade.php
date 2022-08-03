@@ -51,8 +51,8 @@
                                 <tr>
                                     <td>{{ $list->id }}</td>
                                     <td>{{ $list->name }}</td>
-                                    <td><img style="width: 160px; height: 120px;"
-                                            src="{{ asset('image/banner/' . $list->image) }}" alt="" srcset="">
+                                    <td style="width: 25rem"><img style="width: 90%; height: 120px;"
+                                            src="{{ Storage::url($list->image) }}" alt="" srcset="">
                                     </td>
                                     <td> <a href="{{ $list->link }}"><i title="{{ $list->link }}"
                                                 class="nc-icon nc-planet"></i></a></td>

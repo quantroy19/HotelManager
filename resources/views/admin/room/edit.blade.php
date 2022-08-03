@@ -28,7 +28,7 @@
                     @enderror
                     <div class="form-group">
                         <label>Price <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="price" placeholder="price"
+                        <input type="number" class="form-control" name="price" placeholder="price"
                             value="{{ $room->price }}">
                     </div>
                     @error('phone')
@@ -38,7 +38,9 @@
                         <label for="image">{{ __('Category') }}</label>
                         <select class="custom-select form-control" name="category_id">
                             @foreach ($categorys as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option {{ $room->category_id == $category->id ? 'selected' : '' }}
+                                    value="{{ $category->id }}">
+                                    {{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -49,12 +51,14 @@
                     <div class="form-group">
                         <label>Image</label>
                         <div class="form-group">
+                            <div>
+                                <img id="image_preview" src="{{ Storage::url($room->image) }}" alt="your image"
+                                    style="width: 350px; height:150px; margin-bottom: 10px; " />
+                            </div>
                             <label class="custom-file">
-                                <input type="file" name="image" class="custom-file-input">
+                                <input type="file" name="image" id="image" class="custom-file-input">
                                 <span class="custom-file-control"></span>
                             </label>
-                            <img src="{{ asset('image/room/' . $room->image) }}" width="150" alt=""
-                                srcset="">
                         </div>
                     </div>
                     @error('image')
@@ -66,13 +70,17 @@
                         <div class="form-check">
                             <label class="form-check-label pt-3 row">
                                 <span class="col-1 ">
-                                    <input class="form-check-input" type="checkbox" name="status" value="1" checked>
+                                    <input class="form-check-input" type="checkbox" name="status" value="1"
+                                        {{ $room->status == config('custom.room_status_text.active') ? 'checked' : '' }}>
                                     <span class="form-check-sign "></span>
                                 </span>
                                 <span class="col-11">Active</span>
                             </label>
                         </div>
                     </div>
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}<br />
+                    @endforeach
                     <button type="submit" class="btn btn-info btn-fill">Submit</button>
                 </form>
             </div>
@@ -84,4 +92,5 @@
     @parent
     <script src="{{ asset('/bower_components/summernote/dist/summernote-bs4.js') }}"></script>
     <script src="{{ asset('/js/summernote.js') }}"></script>
+    <script src="{{ asset('/js/uploadImage.js') }}"></script>
 @endsection

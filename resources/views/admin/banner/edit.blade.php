@@ -37,13 +37,16 @@
                         <div class="form-group">
                             <label>Image</label>
                             <div class="form-group">
+                                <div>
+                                    <img id="image_preview" src="{{ Storage::url($item->image) }}" alt="your image"
+                                        style="width: 350px; height:150px; margin-bottom: 10px;" />
+                                </div>
                                 <label class="custom-file">
-                                    <input type="file" name="image" class="custom-file-input">
+                                    <input type="file" name="image" id="image" class="custom-file-input">
                                     <span class="custom-file-control"></span>
                                 </label>
                             </div>
                         </div>
-                        <input type="hidden" name="image_old" value="{{ $item->image }}">
                         @error('image')
                             <div class="alert alert-danger error">{{ $message }}</div>
                         @enderror
@@ -66,4 +69,8 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    @parent
+    <script src="{{ asset('js/uploadImage.js') }}"></script>
 @endsection

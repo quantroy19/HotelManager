@@ -53,11 +53,8 @@ class BannerController extends Controller
         $data = [];
         $data = $request->post();
         $data['user_id'] = $user_id;
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/banner/'), $filename);
-            $data['image'] = $filename;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['image'] = $this->uploadImage($request->file('image'));
         }
         $data['status'] = $request->status ? config('custom.banner_status.active') : config('custom.banner_status.inactive');
         // dd($data);
@@ -107,13 +104,8 @@ class BannerController extends Controller
         $data = [];
         $data = $request->post();
         $data['user_id'] = $user_id;
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/banner/'), $filename);
-            $data['image'] = $filename;
-        } else {
-            $data['image'] = $data['image_old'];
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['image'] = $this->uploadImage($request->file('image'));
         }
         $data['status'] = $request->status ? config('custom.banner_status.active') : config('custom.banner_status.inactive');
         $res = $model->update($data);
@@ -145,5 +137,10 @@ class BannerController extends Controller
             Session::flash('error', 'Khong ton tai trong database');
             return redirect()->route('admin.banner.index');
         }
+    }
+    public function uploadImage($file)
+    {
+        $fileName = time() . $file->getClientOriginalName();
+        return $file->storeAs('bannerImage', $fileName, 'public');
     }
 }

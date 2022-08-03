@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoomRequest;
 use App\Models\Category;
 use App\Models\Room;
 use Illuminate\Http\Request;
@@ -47,21 +48,15 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoomRequest $request)
     {
         $model = new Room();
         $data = [];
         $data = $request->all();
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/room/'), $filename);
-            $data['image'] = $filename;
-        } else {
-            $data['image'] = "default.png";
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['image'] = $this->uploadImage($request->file('image'));
         }
         $data['status'] = $request->status ? config('custom.room_status.active') : config('custom.room_status.inactive');
-
         $res = $model->create($data);
         if ($res) {
             Session::flash('success', 'Thêm mới thành công');
@@ -105,25 +100,22 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoomRequest $request, $id)
     {
         $model = Room::find($id);
         $data = $request->all();
         $data['status'] = $request->status ? config('custom.room_status.active') : config('custom.room_status.inactive');
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('image/room/'), $filename);
-            $data['image'] = $filename;
-            $res = $model->update($data);
-            if ($res) {
-                Session::flash('success', 'Sửa thành công');
-            } else {
-                Session::flash('error', 'Sửa thất bại');
-            }
-
-            return  redirect()->route('admin.room.index');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['image'] = $this->uploadImage($request->file('image'));
         }
+        $res = $model->update($data);
+        if ($res) {
+            Session::flash('success', 'Sửa thành công');
+        } else {
+            Session::flash('error', 'Sửa thất bại');
+        }
+
+        return  redirect()->route('admin.room.index');
     }
 
     /**
@@ -141,5 +133,10 @@ class RoomController extends Controller
             Session::flash('error', 'Xoa thất bại');
         }
         return redirect()->route('admin.room.index');
+    }
+    public function uploadImage($file)
+    {
+        $fileName = time() . $file->getClientOriginalName();
+        return $file->storeAs('roomImage', $fileName, 'public');
     }
 }

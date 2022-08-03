@@ -51,10 +51,10 @@
                                 <tr>
                                     <td>{{ $room->id }}</td>
                                     <td>{{ $room->name }}</td>
-                                    <td><img src="{{ asset('image/room/' . $room->image) }}"
-                                            style="height: 100px;width: 80px" alt="" srcset="">
+                                    <td><img src="{{ Storage::url($room->image) }}" style="height: 100px;width: 200px"
+                                            alt="" srcset="">
                                     </td>
-                                    <td>{{ $room->price }}</td>
+                                    <td>{{ number_format($room->price, 0, '.', ',') }}VND</td>
                                     <td>{{ $room->category->name }}</td>
                                     <td> {{ $room->status }} </td>
                                     <td>
