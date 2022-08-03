@@ -133,23 +133,5 @@
 @endsection
 @section('script')
     @parent
-    <script>
-        $(function() {
-            function readURL(input, selector) {
-                if (input.files && input.files[0]) {
-                    let reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        $(selector).attr('src', e.target.result);
-                    };
-
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-            $("#image").change(function() {
-                readURL(this, '#image_preview');
-            });
-
-        });
-    </script>
+    <script src="{{ asset('js/uploadImage.js') }}"></script>
 @endsection
