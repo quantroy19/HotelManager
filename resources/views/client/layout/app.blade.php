@@ -24,5 +24,4 @@
         @include('client.layout.script')
     @show
 </body>
-
 </html>
