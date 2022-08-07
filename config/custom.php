@@ -44,4 +44,16 @@ return [
         'inactive' => 'inactive',
         'active' => 'active',
     ],
+    'number_limit' => [
+        'home' => '4'
+    ],
+    'number_paginate' => [
+        'room' => '4'
+    ],
+    'status_booking' => [
+        'cancel' => '0',
+        'unpaid' => '1',
+        'paid' => '2'
+    ]
+
 ];

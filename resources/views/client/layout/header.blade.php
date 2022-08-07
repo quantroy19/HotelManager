@@ -18,9 +18,9 @@
             </div>
             <div class="collapse navbar-collapse" id="hotel_booking_menu">
                 <ul class="navbar-nav">
-                    <li><a href="">Home</a></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
                     <li><a href="#"> About </a></li>
-                    <li><a href="#"> Room </a></li>
+                    <li><a href="{{route('room')}}"> Room </a></li>
                     <li><a href="#">Blog</a> </li>
                     <li><a href="#"> Contact Us </a></li>
                 </ul>

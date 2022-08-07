@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('client.checkout');
-});
+Route::get('/', "Client\RoomController@home");
+Route::get('/home', "Client\RoomController@home")->name('home');
+Route::get('/room', "Client\RoomController@getListRoom")->name('room');
+Route::get('/room-detail/{id}', "Client\RoomController@getRoomDetail")->name('room-detail');
+Route::get('/room/{cate_id}', "Client\RoomController@getListRoomByCate")->name('roomByCate');
+
 
 Route::get('/test', "Admin\DemoController@index");
 Route::get('/register', "Auth\RegisterController@index")->name('form-register');
