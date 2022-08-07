@@ -13,6 +13,13 @@
                 </a>
             </li>
             <li class="nav-item ">
+                <a class="nav-link" href="{{ route('admin.booking.index') }}">
+                    <i class="nc-icon nc-map-big"></i>
+                    <p>{{ __('Booking') }}</p>
+                </a>
+            </li>
+            </li>
+            <li class="nav-item ">
                 <a class="nav-link" href="{{ route('admin.category.index') }}">
                     <i class="nc-icon nc-layers-3"></i>
                     <p>{{ __('Category') }}</p>

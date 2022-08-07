@@ -75,6 +75,7 @@ Route::group(
         });
 
         Route::resource('room', 'RoomController');
+        Route::resource('booking', 'BookingController');
     }
 
 );
