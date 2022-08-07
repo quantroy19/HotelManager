@@ -31,3 +31,5 @@
 <script src="{{ asset('bower_components/template-hotel-booking/beyond_hotel/assets/js/intlTelInput.js') }}"></script>
 
 <script src="{{ asset('bower_components/template-hotel-booking/beyond_hotel/assets/js/main.js') }}"></script>
+
+<script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>

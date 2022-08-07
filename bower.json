@@ -18,6 +18,7 @@
   "dependencies": {
     "light-bootstrap-dashboard": "creativetimofficial/light-bootstrap-dashboard",
     "summernote": "^0.8.20",
-    "template-hotel-booking": "https://github.com/VanDat2305/template-hotel-booking.git"
+    "template-hotel-booking": "https://github.com/VanDat2305/template-hotel-booking.git",
+    "jquery-ui": "jqueryui#^1.12.1"
   }
 }
