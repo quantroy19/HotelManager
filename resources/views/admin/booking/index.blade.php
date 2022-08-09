@@ -60,11 +60,11 @@
                                         {{ $list->status }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.user.edit', ['id' => $list->id]) }}" rel="tooltip"
-                                            title="Edit " class="btn btn-info btn-simple btn-link">
+                                        <a href="{{ route('admin.booking.edit', ['booking' => $list->id]) }}"
+                                            rel="tooltip" title="Edit " class="btn btn-info btn-simple btn-link">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('admin.user.destroy', ['id' => $list->id]) }}"
+                                        <form action="{{ route('admin.booking.destroy', ['booking' => $list->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')

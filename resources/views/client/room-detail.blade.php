@@ -231,8 +231,7 @@
                     beforeShow: function(input, inst) {
                         setTimeout(function() {
                             inst.dpDiv.css({
-                                top: 250,
-                                left: 850
+                                zIndex: 9999,
                             });
                         }, 0);
                     }
@@ -249,8 +248,7 @@
                     beforeShow: function(input, inst) {
                         setTimeout(function() {
                             inst.dpDiv.css({
-                                top: 350,
-                                left: 850
+                                zIndex: 9999,
                             });
                         }, 0);
                     }

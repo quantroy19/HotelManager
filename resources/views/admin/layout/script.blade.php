@@ -15,3 +15,4 @@
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="{{ asset('bower_components/light-bootstrap-dashboard/assets/js/light-bootstrap-dashboard.js?v=2.0.0') }}"
     type="text/javascript"></script>
+<script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>

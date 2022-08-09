@@ -12,121 +12,80 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">{{ $title }}</h4>
+                    @if (Session::has('error'))
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>{{ Session::get('error') }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
                 <div class="card-body col-6">
-                    <form method="POST" action="{{ route('admin.user.update', ['id' => $res->id]) }}"
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.booking.update', $id) }}">
                         @csrf
                         @method('PUT')
-                        <div class="row">
-                            <div class="col-5 ">
-                                <div class="form-group">
-                                    <label>Name *</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Name"
-                                        value="{{ $res->name }}">
-                                </div>
-                                @error('name')
-                                    <div class="alert alert-danger error">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-7 ">
-                                <div class="form-group">
-                                    <label>Email *</label>
-                                    <input type="text" class="form-control" name="email" placeholder="email"
-                                        value="{{ $res->email }}">
-                                </div>
-                                @error('email')
-                                    <div class="alert alert-danger error">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
                         <div class="form-group">
-                            <label>Phone *</label>
+                            <label>Room</label>
+                            <select class="custom-select form-control" name="room_id" id="room_id1">
+                                @foreach ($rooms as $room)
+                                    <option {{ $room->id == $item->room_id ? 'selected' : '' }}
+                                        room_id="{{ $room->id }}" value="{{ $room->id }}">{{ $room->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('room_id')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group">
+                            <label>Arrival date</label>
+                            <input class="form-control" name="arrival_date" id="from-picker" type="text"
+                                autocomplete="off" placeholder="Arrival date " value="{{ $item->arrival_date }}">
+                        </div>
+                        @error('arrival_date ')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group">
+                            <label>Departure date</label>
+                            <input class="form-control" name="departure_date" id="to-picker"type="text"
+                                autocomplete="off" placeholder="departure_date" value="{{ $item->departure_date }}">
+                        </div>
+                        @error('departure_date')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="name"
+                                value="{{ $item->name }}">
+                        </div>
+                        @error('name')
+                            <div class="alert alert-danger error">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group">
+                            <label>Phone</label>
                             <input type="text" class="form-control" name="phone" placeholder="phone"
-                                value="{{ $res->phone }}">
+                                value="{{ $item->phone }}">
                         </div>
                         @error('phone')
                             <div class="alert alert-danger error">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" name="address" placeholder="address"
-                                value="{{ $res->address }}">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="email" placeholder="email"
+                                value="{{ $item->email }}">
                         </div>
-                        @error('address')
+                        @error('email')
                             <div class="alert alert-danger error">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password"
-                                value="" />
+                            <label>Infomation</label>
+                            <textarea style="height: 100px" class="form-control" name="infomation" id="" cols="50" rows="30">{{ $item->infomation }}</textarea>
                         </div>
-                        @error('password')
+                        @error('infomation')
                             <div class="alert alert-danger error">{{ $message }}</div>
                         @enderror
-                        <div class="form-group">
-                            <label>Confirm password</label>
-                            <input type="password" class="form-control" name="re-password" placeholder="Confirm Password"
-                                value="" />
-                        </div>
-                        @error('re-password')
-                            <div class="alert alert-danger error">{{ $message }}</div>
-                        @enderror
-                        <div class="form-group">
-                            <label>Avatar</label>
-                            <div class="form-group">
-                                <div>
-                                    <img id="image_preview"
-                                        src="{{ $res->avatar ? Storage::url($res->avatar) : 'https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg' }}"
-                                        alt="your image" style="max-width: 200px; height:100px; margin-bottom: 10px;"
-                                        class="img-fluid" />
-                                </div>
-                                <label class="custom-file">
-                                    <input type="file" name="image" id="image" class="custom-file-input">
-                                    <span class="custom-file-control"></span>
-                                </label>
-                            </div>
-                        </div>
-                        @error('image')
-                            <div class="alert alert-danger error">{{ $message }}</div>
-                        @enderror
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="">Role</label>
-                                    <div class="form-group pt-3">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input ml-2" type="radio" name="role_id"
-                                                id="inlineRadio1" value="{{ config('custom.user_roles.user') }}"
-                                                {{ $res->role_id == config('custom.user_roles.user') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="inlineRadio1">User</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input ml-2" type="radio" name="role_id"
-                                                id="inlineRadio2" value="{{ config('custom.user_roles.admin') }}"
-                                                {{ $res->role_id == config('custom.user_roles.admin') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="inlineRadio2">Admin</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="">Status</label>
-                                    <div class="form-check">
-                                        <label class="form-check-label pt-3 row">
-                                            <span class="col-1 ">
-                                                <input class="form-check-input" type="checkbox" name="status"
-                                                    value="1"
-                                                    {{ $res->status == config('custom.user_status_text.active') ? 'checked' : '' }}>
-                                                <span class="form-check-sign "></span>
-                                            </span>
-                                            <span class="col-11 pb-5">Active</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <button type="submit" class="btn btn-info btn-fill">Submit</button>
                     </form>
                 </div>
@@ -137,4 +96,55 @@
 @section('script')
     @parent
     <script src="{{ asset('js/uploadImage.js') }}"></script>
+    <script>
+        $(function() {
+            var dateFormat = "mm/dd/yy",
+                from = $("#from-picker")
+                .datepicker({
+                    minDate: 0,
+                    // beforeShowDay: disableDates,
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1,
+                    beforeShow: function(input, inst) {
+                        setTimeout(function() {
+                            inst.dpDiv.css({
+                                zIndex: 9999,
+                            });
+                        }, 0);
+                    }
+                })
+                .on("change", function() {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+                to = $("#to-picker").datepicker({
+                    minDate: 0,
+                    // beforeShowDay: disableDates,
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1,
+                    beforeShow: function(input, inst) {
+                        setTimeout(function() {
+                            inst.dpDiv.css({
+                                zIndex: 9999,
+                            });
+                        }, 0);
+                    }
+                })
+                .on("change", function() {
+                    from.datepicker("option", "maxDate", getDate(this));
+                });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+    </script>
 @endsection
