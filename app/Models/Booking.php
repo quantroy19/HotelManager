@@ -8,4 +8,46 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'room_id',
+        'user_id',
+        'email',
+        'phone',
+        'name',
+        'coupon_id',
+        'departure_date',
+        'arrival_date',
+        'infomation',
+        'sub_price',
+        'total_price',
+        'status',
+    ];
+
+    public function getStatusAttribute($value)
+    {
+        $bookingStatus = null;
+        switch ($value) {
+            case config('custom.booking_status.active'):
+                $bookingStatus = __('active');
+                break;
+            case config('custom.booking_status.inactive'):
+                $bookingStatus = __('block');
+                break;
+            default:
+                $bookingStatus = __('active');
+                break;
+        }
+
+        return $bookingStatus;
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

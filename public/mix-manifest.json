@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/summernote.js": "/js/summernote.js",
     "/js/uploadImage.js": "/js/uploadImage.js",
+    "/js/disableDates.js": "/js/disableDates.js",
     "/css/custom_client.css": "/css/custom_client.css",
     "/css/custom_admin.css": "/css/custom_admin.css",
     "/css/register.css": "/css/register.css",

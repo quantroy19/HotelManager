@@ -88,49 +88,70 @@
                         <div class="hotel-details-widget hotel-details-widget-padding widget bg-white radius-10">
                             <div class="details-sidebar">
                                 <div class="details-sidebar-dropdown custom-form">
-                                    <form action="#">
+                                    @if (Session::has('error'))
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <strong>{{ Session::get('error') }}</strong>
+                                        </div>
+                                    @endif
+                                    @if (Session::has('success'))
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <strong>{{ Session::get('success') }}</strong>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('bookingRoom', ['id' => $id]) }}" id='checkout-form'
+                                        method="post">
+                                        @csrf
+                                        @error('booking')
+                                            <div class="text-danger error">{{ $message }}</div>
+                                        @enderror
+                                        <input type="hidden" name="room_id" value="{{ $id }}">
                                         <div class="single-input">
                                             <label class="details-sidebar-dropdown-title"> Check In </label>
-                                            <input class="form-control" id="from-picker" type="text"
-                                                placeholder="Check in">
+                                            <input class="form-control" name="departure_date" id="from-picker"
+                                                type="text" autocomplete="off" placeholder="Check in"
+                                                value="{{ old('departure_date') }}">
                                         </div>
+                                        @error('departure_date')
+                                            <div class="text-danger error">{{ $message }}</div>
+                                        @enderror
                                         <div class="single-input mt-3">
                                             <label class="details-sidebar-dropdown-title"> Check Out </label>
-                                            <input class="form-control" id="to-picker" type="text"
-                                                placeholder="Check out">
+                                            <input class="form-control" name="arrival_date" id="to-picker" type="text"
+                                                autocomplete="off" placeholder="Check out"
+                                                value="{{ old('arrival_date') }}">
                                         </div>
+                                        @error('arrival_date')
+                                            <div class="text-danger error">{{ $message }}</div>
+                                        @enderror
+                                        <div class="single-input mt-3">
+                                            <label class="details-sidebar-dropdown-title"> Name </label>
+                                            <input class="form-control" name="name" type="text"
+                                                value="{{ old('name') }}">
+                                        </div>
+                                        @error('name')
+                                            <div class="text-danger error">{{ $message }}</div>
+                                        @enderror
+                                        <div class="single-input mt-3">
+                                            <label class="details-sidebar-dropdown-title"> Phone</label>
+                                            <input class="form-control" name="phone" type="text"
+                                                value="{{ old('phone') }}">
+                                        </div>
+                                        @error('phone')
+                                            <div class="text-danger error">{{ $message }}</div>
+                                        @enderror
+                                        <div class="single-input mt-3">
+                                            <label class="details-sidebar-dropdown-title"> Email</label>
+                                            <input class="form-control" name="email" type="email"
+                                                value="{{ old('email') }}">
+                                        </div>
+                                        @error('email')
+                                            <div class="text-danger error">{{ $message }}</div>
+                                        @enderror
                                     </form>
                                 </div>
-                                <div class="details-sidebar-quantity pt-4">
-                                    <div class="details-sidebar-quantity-flex">
-                                        <div class="details-sidebar-quantity-item">
-                                            <h6 class="details-sidebar-quantity-title"> Guest </h6>
-                                            <div class="details-sidebar-quantity-field">
-                                                <span class="minus"><i class="las la-minus"></i></span><input
-                                                    class="quantity-input" type="number" value="5"><span
-                                                    class="plus"><i class="las la-plus"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="details-sidebar-quantity-item">
-                                            <h6 class="details-sidebar-quantity-title"> Children </h6>
-                                            <div class="details-sidebar-quantity-field">
-                                                <span class="minus"><i class="las la-minus"></i></span><input
-                                                    class="quantity-input" type="number" value="3"><span
-                                                    class="plus"><i class="las la-plus"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="details-sidebar-quantity-item">
-                                            <h6 class="details-sidebar-quantity-title"> Room </h6>
-                                            <div class="details-sidebar-quantity-field">
-                                                <span class="minus"><i class="las la-minus"></i></span><input
-                                                    class="quantity-input" type="number" value="2"><span
-                                                    class="plus"><i class="las la-plus"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="btn-wrapper mt-4">
-                                    <a href="checkout.html" class="cmn-btn btn-bg-1 btn-small"> Go to Checkout </a>
+                                    <input class="btn btn-info text-white" type="submit" value="Booking"
+                                        form="checkout-form">
                                 </div>
                             </div>
                         </div>
@@ -231,8 +252,7 @@
                     beforeShow: function(input, inst) {
                         setTimeout(function() {
                             inst.dpDiv.css({
-                                top: 250,
-                                left: 850
+                                zIndex: 9999,
                             });
                         }, 0);
                     }
@@ -249,8 +269,7 @@
                     beforeShow: function(input, inst) {
                         setTimeout(function() {
                             inst.dpDiv.css({
-                                top: 350,
-                                left: 850
+                                zIndex: 9999,
                             });
                         }, 0);
                     }
