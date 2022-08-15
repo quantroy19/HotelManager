@@ -11,48 +11,45 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">{{ $title }}</h4>
+                    <h4 class="card-title">{{ $title }} - {{ $room->name }}</h4>
                     @if (Session::has('error'))
-                        <div class="alert alert-danger alert-dismissible" role="alert">
+                        <div class="alert-danger alert-dismissible" role="alert">
                             <strong>{{ Session::get('error') }}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
                         </div>
-                    @endif
+                        @endif @if (Session::has('success'))
+                            <div class="alert-success alert-dismissible" role="alert">
+                                <strong>{{ Session::get('success') }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                        @endif
                 </div>
                 <div class="card-body col-6">
                     <form method="POST" action="{{ route('admin.booking.store') }}">
                         @csrf
-                        <div class="form-group">
-                            <label>Room</label>
-                            <select class="custom-select form-control" name="room_id" id="room_id1">
-                                <option value="121" selected>Select Room</option>
-                                @foreach ($rooms as $room)
-                                    <option room_id="{{ $room->id }}" value="{{ $room->id }}">{{ $room->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        @error('room_id')
-                            <div class="alert alert-danger error">{{ $message }}</div>
-                        @enderror
-                        <div class="form-group">
-                            <label>Arrival date</label>
-                            <input class="form-control" name="arrival_date" id="from-picker" type="text"
-                                autocomplete="off" placeholder="Arrival date " value="{{ old('arrival_date') }}">
-                        </div>
-                        @error('arrival_date ')
-                            <div class="alert alert-danger error">{{ $message }}</div>
-                        @enderror
+
+                        <input type="hidden" name="room_id" value="{{ $room->id }}">
                         <div class="form-group">
                             <label>Departure date</label>
-                            <input class="form-control" name="departure_date" id="to-picker"type="text"
+                            <input class="form-control" name="departure_date" id="from-picker"type="text"
                                 autocomplete="off" placeholder="departure_date" value="{{ old('departure_date') }}">
                         </div>
                         @error('departure_date')
-                            <div class="alert alert-danger error">{{ $message }}</div>
+                            <div class="text-danger error">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group">
+                            <label>Arrival date</label>
+                            <input class="form-control" name="arrival_date" id="to-picker" type="text" autocomplete="off"
+                                placeholder="Arrival date " value="{{ old('arrival_date') }}">
+                        </div>
+                        @error('arrival_date')
+                            <div class="text-danger error">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
                             <label>Name</label>
@@ -60,7 +57,7 @@
                                 value="{{ old('name') }}">
                         </div>
                         @error('name')
-                            <div class="alert alert-danger error">{{ $message }}</div>
+                            <div class="text-danger error">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
                             <label>Phone</label>
@@ -68,7 +65,7 @@
                                 value="{{ old('phone') }}">
                         </div>
                         @error('phone')
-                            <div class="alert alert-danger error">{{ $message }}</div>
+                            <div class="text-danger error">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
                             <label>Email</label>
@@ -76,14 +73,14 @@
                                 value="{{ old('email') }}">
                         </div>
                         @error('email')
-                            <div class="alert alert-danger error">{{ $message }}</div>
+                            <div class="text-danger error">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
                             <label>Infomation</label>
                             <textarea style="height: 100px" class="form-control" name="infomation" id="" cols="50" rows="30">{{ old('infomation') }}</textarea>
                         </div>
                         @error('infomation')
-                            <div class="alert alert-danger error">{{ $message }}</div>
+                            <div class="text-danger error">{{ $message }}</div>
                         @enderror
                         <button type="submit" class="btn btn-info btn-fill">Submit</button>
                     </form>
@@ -95,13 +92,21 @@
 @section('script')
     @parent
     <script src="{{ asset('js/uploadImage.js') }}"></script>
+    <script src="{{ asset('js/disableDates.js') }}"></script>
     <script>
         $(function() {
+            var arrDate = @json($arrDate);
+
+            function disableDates(date) {
+                var string = $.datepicker.formatDate('dd-mm-yy', date);
+                return [arrDate.indexOf(string) == -1];
+            }
+
             var dateFormat = "mm/dd/yy",
                 from = $("#from-picker")
                 .datepicker({
                     minDate: 0,
-                    // beforeShowDay: disableDates,
+                    beforeShowDay: disableDates,
                     defaultDate: "+1w",
                     changeMonth: true,
                     numberOfMonths: 1,
@@ -118,7 +123,7 @@
                 }),
                 to = $("#to-picker").datepicker({
                     minDate: 0,
-                    // beforeShowDay: disableDates,
+                    beforeShowDay: disableDates,
                     defaultDate: "+1w",
                     changeMonth: true,
                     numberOfMonths: 1,

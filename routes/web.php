@@ -22,6 +22,7 @@ Route::get('/home', "Client\RoomController@home")->name('home');
 Route::get('/room', "Client\RoomController@getListRoom")->name('room');
 Route::get('/room-detail/{id}', "Client\RoomController@getRoomDetail")->name('room-detail');
 Route::get('/room/{cate_id}', "Client\RoomController@getListRoomByCate")->name('roomByCate');
+Route::post('room/booking/{id}', 'Client\RoomController@bookingRoom')->name('bookingRoom');
 
 
 Route::get('/test', "Admin\DemoController@index");
@@ -76,6 +77,8 @@ Route::group(
 
         Route::resource('room', 'RoomController');
         Route::resource('booking', 'BookingController');
+        Route::get('book/show-room', 'BookingController@showListRoom')->name('book.showroom');
+        Route::get('book/room/{id}', 'BookingController@createBookingById')->name('book.createBookingById');
     }
 
 );

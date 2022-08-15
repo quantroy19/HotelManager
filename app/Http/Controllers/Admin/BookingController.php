@@ -40,12 +40,37 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createBookingById($id)
     {
+        $this->v['room'] = Room::findorFail($id);
         $this->v['title'] = __('Booking');
+        $bookings = Booking::where('room_id', $id)->where('status', config('custom.status_booking.unpaid'))->get();
+        $arrDate = [];
+        foreach ($bookings as $booking) {
+            $end = new DateTime($booking->arrival_date);
+            $begin = new DateTime($booking->departure_date);
+            $end = $end->modify('+1 day');
+            $interval = new DateInterval('P1D');
+            $daterange = new DatePeriod($begin, $interval, $end);
+            $arrDay = [];
+            foreach ($daterange as $date) {
+                array_push($arrDay, $date->format("d-m-Y"));
+            }
+            array_push($arrDate, $arrDay);
+        }
+
+        $arrDate = array_merge([], ...$arrDate);
+        // dd($arrDate);
+        $this->v['arrDate'] = $arrDate;
+        return view('admin.booking.add', $this->v);
+    }
+
+    public function showListRoom()
+    {
+        $this->v['title'] = __('List room');
         $this->v['rooms'] = Room::where('status', config('custom.room_status.active'))->get();
 
-        return view('admin.booking.add', $this->v);
+        return view('admin.booking.list-room', $this->v);
     }
 
     /**
@@ -64,12 +89,21 @@ class BookingController extends Controller
         $data['status'] = config('custom.status_booking.unpaid');
         $data['infomation'] = '';
 
-        $departure_date =  Carbon::parse($request->departure_date)->format('d-m-Y');
-        $arrival_date =  Carbon::parse($request->arrival_date)->format('d-m-Y');
-        $bookedDate =  $this->getBookedDate($request->room_id);
+        $bookedDate = $this->getBookedDate($request->room_id);
 
-        // dd($departure_date, $arrival_date, $bookedDate);
-        if (in_array($departure_date, $bookedDate) || in_array($arrival_date, $bookedDate)) {
+        $begin = new DateTime($request->departure_date);
+        $end = new DateTime($request->arrival_date);
+        $end = $end->modify('+1 day');
+        $interval = new DateInterval('P1D');
+        $daterange = new DatePeriod($begin, $interval, $end);
+        $arrDay = [];
+        foreach ($daterange as $date) {
+            array_push($arrDay, $date->format("d-m-Y"));
+        }
+
+        $checkBookable = array_intersect($arrDay, $bookedDate);
+
+        if ($checkBookable) {
             Session::flash('error', 'Phòng đã được đặt vào thời gian này');
 
             return redirect()->back();
@@ -77,23 +111,12 @@ class BookingController extends Controller
             $res =  $model->create($data);
 
             if ($res) {
-                Session::flash('success', 'Thêm mới thành công');
+                Session::flash('success', 'Booking thành công');
             } else {
-                Session::flash('error', 'Thêm mới thất bại');
+                Session::flash('error', 'Booking thất bại');
             }
-            return redirect()->route('admin.booking.index');
+            return redirect()->back();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -177,8 +200,8 @@ class BookingController extends Controller
         $bookings = Booking::where('room_id', $id)->where('status', config('custom.status_booking.unpaid'))->get();
         $arrDate = [];
         foreach ($bookings as $booking) {
-            $begin = new DateTime($booking->arrival_date);
-            $end = new DateTime($booking->departure_date);
+            $begin = new DateTime($booking->departure_date);
+            $end = new DateTime($booking->arrival_date);
             $end = $end->modify('+1 day');
             $interval = new DateInterval('P1D');
             $daterange = new DatePeriod($begin, $interval, $end);

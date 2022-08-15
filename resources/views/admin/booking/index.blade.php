@@ -42,10 +42,10 @@
                             <th>Room</th>
                             <th>User Booking</th>
                             <th>Email</th>
-                            <th>Arrival Date</th>
                             <th>Departure Date</th>
+                            <th>Arrival Date</th>
                             <th>Status</th>
-                            <th><a class="btn btn-primary" href="{{ route('admin.booking.create') }}"> Add</a></th>
+                            <th><a class="btn btn-primary" href="{{ route('admin.book.showroom') }}"> Add</a></th>
                         </thead>
                         <tbody class="tbody_image">
                             @foreach ($lists as $list)
@@ -54,8 +54,8 @@
                                     <td>{{ $list->room->name }}</td>
                                     <td>{{ $list->user->name }}</td>
                                     <td>{{ $list->email }}</td>
-                                    <td>{{ $list->arrival_date }}</td>
                                     <td>{{ $list->departure_date }}</td>
+                                    <td>{{ $list->arrival_date }}</td>
                                     <td>
                                         {{ $list->status }}
                                     </td>
