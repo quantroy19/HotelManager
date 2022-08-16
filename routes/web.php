@@ -20,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', "Client\RoomController@home");
 Route::get('/home', "Client\RoomController@home")->name('home');
 Route::get('/room', "Client\RoomController@getListRoom")->name('room');
+Route::post('/room', "Client\RoomController@postRoom")->name('postRoom');
 Route::get('/room-detail/{id}', "Client\RoomController@getRoomDetail")->name('room-detail');
 Route::get('/room/{cate_id}', "Client\RoomController@getListRoomByCate")->name('roomByCate');
-Route::post('room/booking/{id}', 'Client\RoomController@bookingRoom')->name('bookingRoom');
+Route::middleware('auth')->post('room/booking/{id}', 'Client\RoomController@bookingRoom')->name('bookingRoom');
 
 
 Route::get('/test', "Admin\DemoController@index");
@@ -39,9 +40,7 @@ Route::group(
         'middleware' => ['auth', 'auth.checkAdmin']
     ],
     function () {
-        Route::get('/', function () {
-            return 'dashboard admin';
-        });
+        Route::get('/', 'DashboardController@getDashboard')->name('dashboard');
         Route::prefix('category')->as('category.')->group(function () {
             Route::get('/', 'CategoryController@index')->name('index');
             Route::get('/create', 'CategoryController@create')->name('create');

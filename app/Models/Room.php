@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Room extends Model
 {
@@ -32,5 +33,14 @@ class Room extends Model
         }
 
         return $userStatus;
+    }
+    public function getListRoomBySearch($params)
+    {
+        $data = Room::where('id', '!=', function ($query) use ($params) {
+            $query->select('id')->from('bookings')
+                ->where('arrival_date', '>', $params['checkin'])
+                ->where('departure_date', '<', $params['checkout'])->get();
+        })->where('category_id', $params['category_id'])->paginate(4);
+        return $data;
     }
 }

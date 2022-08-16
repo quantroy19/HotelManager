@@ -24,7 +24,7 @@ class StoreBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|unique:users",
+            "name" => "required",
             'phone' => 'required|',
             'departure_date' => 'required',
             'arrival_date' => 'required'

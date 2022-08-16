@@ -19,7 +19,7 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            return redirect('/test');
+            return redirect('/');
         } else {
             Session::flash('error', 'email hoặc mật khẩu không đúng');
             return redirect('login')->withInput();
