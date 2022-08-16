@@ -15,6 +15,8 @@ use DatePeriod;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RoomController extends Controller
 {
@@ -135,5 +137,27 @@ class RoomController extends Controller
         $arrDate = array_merge([], ...$arrDate);
 
         return $arrDate;
+    }
+    public function postRoom(Request $request)
+    {
+        $rules = [
+            'checkin' => 'required',
+            'checkout' => 'required',
+        ];
+        $validator = Validator::make($request->input(), $rules);
+        if ($validator->fails()) {
+            return redirect()->route('room');
+        }
+        $params = $request->input();
+        $params['checkout'] = Carbon::parse($request->checkout)->format('Y-m-d');
+        $params['checkin'] = Carbon::parse($request->checkin)->format('Y-m-d');
+        unset($params['_token']);
+        $this->v['title'] = "Room";
+        $this->v['categories'] = Category::where('status', config('custom.category_status.active'))->get();
+        $this->v['rooms'] = Room::getListRoomBySearch($params);
+        $this->v['priceMax'] = Room::all()->max('price');
+        $this->v['priceMin'] = Room::all()->min('price');
+        $this->v['cate_id'] = 0;
+        return view('client.room', $this->v);
     }
 }

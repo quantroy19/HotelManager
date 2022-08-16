@@ -32,7 +32,8 @@
     <div class="location-area pat-90">
         <div class="container">
             <div class="banner-location bg-white radius-5">
-                <div class="banner-location-flex">
+                <form class="banner-location-flex" method="post" action="{{ route('postRoom') }}">
+                    @csrf
                     <div class="banner-location-single">
                         <div class="banner-location-single-flex">
                             <div class="banner-location-single-icon">
@@ -40,7 +41,8 @@
                             </div>
                             <div class="banner-location-single-contents">
                                 <span class="banner-location-single-contents-subtitle"> Check In </span>
-                                <input class="form-control " id="from-picker" type="text" placeholder="Check in">
+                                <input class="form-control " name="checkin" id="from-picker" type="text"
+                                    placeholder="Check in">
                             </div>
                         </div>
                     </div>
@@ -51,7 +53,8 @@
                             </div>
                             <div class="banner-location-single-contents">
                                 <span class="banner-location-single-contents-subtitle"> Check Out </span>
-                                <input class="form-control " id="to-picker" type="text" placeholder="Check out">
+                                <input class="form-control " name="checkout" id="to-picker" type="text"
+                                    placeholder="Check out">
                             </div>
                         </div>
                     </div>
@@ -61,7 +64,7 @@
                             </div>
                             <div class="banner-location-single-contents">
                                 <span class="banner-location-single-contents-subtitle"> Category </span>
-                                <select class="js-select select-style-two" name="state">
+                                <select class="js-select select-style-two" name="category_id">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -71,13 +74,13 @@
                     </div>
                     <div class="banner-location-single-search">
                         <div class="search-suggestions-wrapper">
-                            <div class="search-click-icon">
+                            <button class="search-click-icon">
                                 <i class="las la-search"></i>
-                            </div>
+                            </button>
                         </div>
                         <div class="search-suggestion-overlay"></div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -508,4 +511,42 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    @parent
+    <script>
+        $(function() {
+            var dateFormat = "mm/dd/yy",
+                from = $("#from-picker")
+                .datepicker({
+                    minDate: 0,
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1,
+                })
+                .on("change", function() {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+                to = $("#to-picker").datepicker({
+                    minDate: 0,
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1,
+                })
+                .on("change", function() {
+                    from.datepicker("option", "maxDate", getDate(this));
+                });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+    </script>
 @endsection

@@ -10,7 +10,8 @@
     <section class="hotel-list-area section-bg-2 pat-50 pab-100">
         <div class="container">
             <div class="banner-location bg-white radius-10">
-                <div class="banner-location-flex">
+                <form class="banner-location-flex" method="post" action="{{ route('postRoom') }}">
+                    @csrf
                     <div class="banner-location-single">
                         <div class="banner-location-single-flex">
                             <div class="banner-location-single-icon">
@@ -18,7 +19,8 @@
                             </div>
                             <div class="banner-location-single-contents">
                                 <span class="banner-location-single-contents-subtitle"> Check In </span>
-                                <input class="form-control " id="from-picker" type="text" placeholder="Check in">
+                                <input class="form-control " name="checkin" id="from-picker" type="text"
+                                    placeholder="Check in">
                             </div>
                         </div>
                     </div>
@@ -29,7 +31,8 @@
                             </div>
                             <div class="banner-location-single-contents">
                                 <span class="banner-location-single-contents-subtitle"> Check Out </span>
-                                <input class="form-control " id="to-picker" type="text" placeholder="Check out">
+                                <input class="form-control " name="checkout" id="to-picker" type="text"
+                                    placeholder="Check out">
                             </div>
                         </div>
                     </div>
@@ -39,7 +42,7 @@
                             </div>
                             <div class="banner-location-single-contents">
                                 <span class="banner-location-single-contents-subtitle"> Category </span>
-                                <select class="js-select select-style-two" name="state">
+                                <select class="js-select select-style-two" name="category_id">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -49,13 +52,13 @@
                     </div>
                     <div class="banner-location-single-search">
                         <div class="search-suggestions-wrapper">
-                            <div class="search-click-icon">
+                            <button class="search-click-icon">
                                 <i class="las la-search"></i>
-                            </div>
+                            </button>
                         </div>
                         <div class="search-suggestion-overlay"></div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="shop-contents-wrapper mt-5">
                 <div class="shop-icon">
@@ -94,7 +97,8 @@
                                 <h5 class="title"> Categories </h5>
                                 <div class="single-shop-left-inner margin-top-15">
                                     <ul class="single-shop-left-list active-list list-style-none">
-                                        <li class="item {{ $cate_id == 0 ? 'active' : '' }}"> <a href="{{ route('room') }}">
+                                        <li class="item {{ $cate_id == 0 ? 'active' : '' }}"> <a
+                                                href="{{ route('room') }}">
                                                 Tất cả</a> </li>
                                         @foreach ($categories as $category)
                                             <li class="item {{ $cate_id == $category->id ? 'active' : '' }}"> <a
@@ -184,7 +188,8 @@
                                                     </div>
                                                     <div class="hotel-view-contents-icon">
                                                         <a class="hotel-view-contents-icon-more"
-                                                            href="javascript:void(0)"> +8 More </a>
+                                                            href="javascript:void(0)"> +8
+                                                            More </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -236,7 +241,8 @@
                                                                 {{ $room->name }} </a> </h3>
                                                         <div class="btn-wrapper">
                                                             <a href="javascript:void(0)"
-                                                                class="cmn-btn btn-bg-1 btn-small"> Book Now </a>
+                                                                class="cmn-btn btn-bg-1 btn-small">
+                                                                Book Now </a>
                                                         </div>
                                                     </div>
                                                     <div class="hotel-view-contents-location mt-2">
