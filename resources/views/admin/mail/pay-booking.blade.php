@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,10 +10,7 @@
 
 <body style="display: flex;justify-content: center;">
     <div style="width: 70%;padding: 10px; margin: 0 auto">
-        <div class="img">
-            <img src="http://news365htmllatest.bdtask.com/Demo/DemoNews365/images/logo.png" alt="logo"
-                width="50%">
-        </div>
+
         <h1 style="color: rgb(5, 215, 215)">{{ __('Pay Booking') }}</h1>
         <p>{{ __('Hello') }}, <b style="color: rgb(240, 84, 84)">{{ $content['user_name'] }}</b></p>
 
@@ -30,11 +27,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>
-                    </td>
-                    <td>{{ $post->user->name }}</td>
-                    <td>{{ $post->status }}</td>
-                    <td>{{ $post->created_at }}</td>
+                    <td>{{ $content['arrival_date'] }}</td>
+                    <td>{{ $content['departure_date'] }}</td>
+                    <td>{{ $content['name'] }}</td>
+                    <td>{{ $content['price'] }}</td>
+                    <td>{{ $content['total_day_booked'] }}</td>
+                    <td>{{ $content['total_price'] }}</td>
                 </tr>
 
             </tbody>
@@ -45,4 +43,4 @@
     </div>
 </body>
 
-</html> --}}
+</html>
