@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use App\Mail\PayBookingMail;
 use App\Models\Booking;
 use App\Models\Room;
 use Carbon\Carbon;
@@ -13,6 +14,7 @@ use DatePeriod;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class BookingController extends Controller
@@ -129,6 +131,14 @@ class BookingController extends Controller
     {
         $this->v['title'] = 'Edit Booking';
         $booking = Booking::find($id);
+        $start = Carbon::parse($booking->departure_date);
+        $end = Carbon::parse($booking->arrival_date);
+        $priceRoom = $booking->room->price;
+        $totalDayBooked = $end->diffInDays($start);
+        $totalPrice = $totalDayBooked * $priceRoom;
+
+        $this->v['totalDayBooked'] = $totalDayBooked;
+        $this->v['totalPrice'] = $totalPrice;
         $this->v['item'] = $booking;
         $this->v['id'] = $id;
         $this->v['rooms'] = Room::where('status', config('custom.room_status.active'))->get();
@@ -214,5 +224,15 @@ class BookingController extends Controller
         $arrDate = array_merge([], ...$arrDate);
 
         return $arrDate;
+    }
+
+    public function sendMailPay(Request $request)
+    {
+        $content = $request->all();
+
+        // dd($content);
+        Mail::to($request->email)->send(new PayBookingMail($content));
+        Session::flash('success', 'Send Mail Successfully!');
+        return redirect()->back();
     }
 }
