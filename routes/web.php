@@ -79,7 +79,7 @@ Route::group(
         Route::resource('booking', 'BookingController');
         Route::get('book/show-room', 'BookingController@showListRoom')->name('book.showroom');
         Route::get('book/room/{id}', 'BookingController@createBookingById')->name('book.createBookingById');
-        // Route::post('book/sendmailpay', 'BookingController@sendMailPay')->name('book.sendMailPay');
+        Route::post('book/sendmailpay', 'BookingController@sendMailPay')->name('book.sendMailPay');
     }
 
 );
